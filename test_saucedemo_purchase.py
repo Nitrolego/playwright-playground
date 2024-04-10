@@ -10,9 +10,16 @@ def test_checkout_full_flow(page: Page):
     page.locator("[data-test=\"password\"]").fill("secret_sauce")
     page.locator("[data-test=\"password\"]").press("Enter")
 
+    # Assert that the header has text "Swag Labs" to indicate login success
+    expect(page.locator("[data-test=\"primary-header\"]")).to_contain_text("Swag Labs")
+
     # Adding multiple items to cart
     page.locator("[data-test=\"add-to-cart-sauce-labs-backpack\"]").click()
     page.locator("[data-test=\"add-to-cart-sauce-labs-bike-light\"]").click()
+
+    # Assert that clicking on add to cart is clicked
+    expect(page.locator("[data-test=\"remove-sauce-labs-backpack\"]")).to_contain_text("Remove")
+    expect(page.locator("[data-test=\"remove-sauce-labs-bike-light\"]")).to_contain_text("Remove")
 
     # Checkout flow
     page.locator("[data-test=\"shopping-cart-link\"]").click()
